@@ -1,0 +1,50 @@
+{
+  "name": "cryptography-task",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "preflow": "if [ ! -d \"flow-typed\" ]; then flow-typed install jest@22.1.4; fi",
+    "flow": "./node_modules/.bin/flow",
+    "build:clean": "rimraf ./dist",
+    "build": "npm run build:clean && babel src -d dist --ignore *.spec.*",
+    "lint": "npm run lint:js",
+    "lint:fix": "npm run lint:js",
+    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern ./dist/**/*",
+    "lint:js": "npm run lint:eslint -- ./src --fix",
+    "lint:staged": "lint-staged",
+    "test:clean": "rimraf ./coverage",
+    "pretest": "npm run test:clean && npm run lint && npm run flow",
+    "test": "NODE_ENV=test jest --coverage ./src",
+    "precommit": "test 0 || lint:staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "lint:eslint -- --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^4.18.2",
+    "eslint-plugin-prettier": "^2.6.0",
+    "flow-bin": "^0.67.1",
+    "flow-typed": "^2.3.0",
+    "husky": "^0.14.3",
+    "jest": "22.1.4",
+    "lint-staged": "^7.0.0",
+    "prettier": "^1.11.1",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "bignumber.js": "^6.0.0"
+  }
+}

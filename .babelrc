@@ -1,0 +1,4 @@
+{
+  "plugins": ["dynamic-import-node", "transform-object-rest-spread"],
+  "presets": ["env", "flow"]
+}
